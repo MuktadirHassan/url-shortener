@@ -11,7 +11,7 @@ const shortUrl = require('./models/shortUrl')
 app.use(express.urlencoded({ extended: false }))
 
 // Connect to db
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.nisgx.mongodb.net/${process.env.DB}?retryWrites=true&w=majority`,{
+mongoose.connect(process.env.DB,{
     useUnifiedTopology:true, useNewUrlParser: true
 }, err => !err ? console.log('Connected!') : console.log(err)
 )
