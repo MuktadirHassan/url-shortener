@@ -1,11 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Url Shortener</title>
-</head>
-<body>
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
     
-</body>
-</html>
+        <div class="container">
+            <header>
+                <h1>Welcome to tinify</h1>
+            </header>
+            <div class="row">
+                <form class="col s12" action="/shortUrl" method="POST">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">insert_link</i>
+                            <input id="fullUrl" type="url" name="fullUrl" class="validate"></input>
+                            <label for="fullUrl">Insert URL Here</label>
+                            <span class="helper-text" data-error="Not a valid URL" data-success="Good to go!"></span>
+                            <div>
+                                <button class="col s2 waves-effect waves-light btn">Tinify</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <table class="highlight">
+                    <thead>
+                      <tr>
+                          <th>Full URL</th>
+                          <th>Short URL</th>
+                          <th>Clicks</th>
+                      </tr>
+                    </thead>
+            
+                    <tbody id="tbody">
+                        
+                      <!-- <tr>
+                        //template
+                        <td style='max-width:300px' class='truncate'>Lorem ipsum dolor sit amet.</td>
+                        <td>Eclair</td>
+                        <td>$0.87</td>
+                      </tr> -->
+                      
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    
+    <script>
+        async function fetchData(){
+            const api = 'http://localhost:5000/allShortUrls'
+            let data = await fetch(api)
+            return await data.json()
+        }
+        
+        document.addEventListener("DOMContentLoaded",async () => {
+            const urlInfo = await fetchData()
+            urlInfo.map(url =>{
+                let html = `
+                    <tr>
+                        <td style='max-width:300px' class='truncate'>${url.full}</td>
+                        <td><a href='http://localhost:5000/${url.short}'>${url.short}</td>
+                        <td>${url.clicks}</td>
+                    </tr>
+                `
+                document.getElementById('tbody').insertAdjacentHTML('afterend',html);
+            })
+        })
+
+
+    </script>
+    
+    
+    <!--JavaScript at end of body for optimized loading-->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </body>
+  </html>
