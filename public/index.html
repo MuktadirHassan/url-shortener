@@ -60,7 +60,7 @@
     
     <script>
         async function fetchData(){
-            const api = 'http://localhost:5000/allShortUrls'
+            const api = 'https://immense-coast-73828.herokuapp.com/allShortUrls'
             let data = await fetch(api)
             return await data.json()
         }
@@ -71,7 +71,7 @@
                 let html = `
                     <tr>
                         <td style='max-width:300px' class='truncate'>${url.full}</td>
-                        <td><a href='http://localhost:5000/${url.short}'>${url.short}</td>
+                        <td><a href='https://immense-coast-73828.herokuapp.com/${url.short}'>${url.short}</td>
                         <td>${url.clicks}</td>
                     </tr>
                 `
