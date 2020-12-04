@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 // Connect to db
 mongoose.connect(process.env.DB,{
     useUnifiedTopology:true, useNewUrlParser: true
-}, err => !err ? console.log('Connected!') : console.log(err)
+}, err => !err ? console.log('Connected!') : console.log(err,"Couldn't connect to Database.")
 )
 
 
@@ -36,6 +36,7 @@ app.get('/allShortUrls', async (req,res) => {
 app.post('/shortUrl', async (req, res) => {
     const fullUrl = req.body.fullUrl;
     try {
+        
         await shortUrl.create({ full: fullUrl })
         res.redirect('/')
         
